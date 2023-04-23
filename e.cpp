@@ -10,7 +10,7 @@ class Person {
   public:
     void set_info() {
       cout << "Enter person name: ";
-      cin >> name;
+      cin>>name;
       
       cout << "Enter person age: ";
       cin >> age;
@@ -26,7 +26,10 @@ class Person {
 class Employee : public Person {
   private:
     string designation;
-    double salary;
+    double basic_salary;
+    double dear_allowance;
+    double hr_allowance;
+    double gross_salary;
     int emp_id;
     static int count; // static member variable to keep track of the number of employees
   
@@ -43,15 +46,23 @@ class Employee : public Person {
       cin >> designation;
       
       if (designation == "Manager") {
-        salary = 50000.0;
+        basic_salary = 50000.0;
+        dear_allowance = 0.4 * basic_salary;
+        hr_allowance = 0.1 * basic_salary;
       } else if (designation == "Developer") {
-        salary = 30000.0;
+        basic_salary = 30000.0;
+        dear_allowance = 0.3 * basic_salary;
+        hr_allowance = 0.05 * basic_salary;
       } else if (designation == "Tester") {
-        salary = 25000.0;
+        basic_salary = 25000.0;
+        dear_allowance = 0.2 * basic_salary;
+        hr_allowance = 0.03 * basic_salary;
       } else {
         cout << "Invalid designation" << endl;
         return;
       }
+      
+      gross_salary = basic_salary + dear_allowance + hr_allowance;
     }
   
     void display_info() {
@@ -59,7 +70,10 @@ class Employee : public Person {
       
       cout << "Employee ID is: " << emp_id << endl;
       cout << "Employee designation is: " << designation << endl;
-      cout << "Employee salary is: $" << salary << endl;
+      cout << "Employee basic salary is: $" << basic_salary << endl;
+      cout << "Employee dearness allowance is: $" << dear_allowance << endl;
+      cout << "Employee house rent allowance is: $" << hr_allowance << endl;
+      cout << "Employee gross salary is: $" << gross_salary << endl;
     }
     
     static int get_count() {
@@ -70,19 +84,20 @@ class Employee : public Person {
 int Employee::count = 0; // initialize count to 0
 
 int main() {
+  
   int count;
-  Employee emp;
-  cout<<"Enter No. Of Employees: \n";
+  cout<<"No Of Employees: \n";
   cin>>count;
+  Employee emp;
 
   for (int i = 1; i <= count; i++) {
-    cout << "Enter information for employee: " <<i<<endl;
+    cout << "Enter information for employee " << endl;
     emp.set_info();
   }
 
   cout << endl << "Displaying information for all employees:" << endl;
   for (int i = 1; i <= count; i++) {
-    cout << "Employee " << i << endl;
+    cout << "Employee " << i + 1 << endl;
     emp.display_info();
     cout << endl;
   }
